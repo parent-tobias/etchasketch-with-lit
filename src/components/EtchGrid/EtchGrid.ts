@@ -23,9 +23,9 @@ export class EtchGrid extends LitElement {
 	}
 	`;
 
-	private handleMouseover(evt: Event){
-	  if(evt?.target?.classList?.contains("cell")){
-		  this.onMouseover(evt.target);
+	private handleMouseover({target}:{target:HTMLElement}){
+	  if(target.classList.contains("cell")){
+		  this.onMouseover(target);
 		}
 	}
 
