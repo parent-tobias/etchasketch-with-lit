@@ -11,15 +11,24 @@ export class EtchGrid extends LitElement {
 
 	static override styles = css`
 	:host {
+		box-sizing: border-box;
+	}
+	:host > div {
+		width: 100%;
+		aspect-ratio:1;
 		display: flex;
 		flex-wrap: wrap;
-		box-sizing: border-box;
 	}
 	.cell {
 		box-sizing: border-box;
 		width: calc(100%/var(--per-side, 16));
 		aspect-ratio: 1;
 		border: 1px solid #333;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-weight:800;
+  	overflow: hidden;
 	}
 	`;
 
@@ -31,8 +40,10 @@ export class EtchGrid extends LitElement {
 
 	override render(){
 		return html`
-		<style>:host {--per-side: ${this.size};}</style>
-		${Array.from({length: this.size**2}, ()=>html`<div class='cell' @mouseover="${this.handleMouseover}"></div>`)}		
+		<div @mouseover="${this.handleMouseover}">
+  		<style>:host {--per-side: ${this.size};}</style>
+	  	${Array.from({length: this.size**2}, ()=>html`<div class='cell'></div>`)}
+	</div>
 		`
 	}
 
