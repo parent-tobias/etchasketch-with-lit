@@ -9,7 +9,7 @@ const handlers = [
 	{title: 'Black', handler: (cell)=>cell.style.backgroundColor='#333'},
 	{title: 'Random', handler: (cell)=>cell.style.backgroundColor=`#${Math.floor(Math.random()*16777215).toString(16)}`},
 	{title: 'Random Letter!', handler: (cell)=>cell.textContent = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()'.charAt(Math.floor(Math.random()*72))},
-	{title: 'Reset', handler:()=>{document.querySelector('etch-grid').reset()} }
+	{title: 'Reset', handler:()=>{} }
 ]
 document.querySelector('actions-panel').modes = handlers;
 
