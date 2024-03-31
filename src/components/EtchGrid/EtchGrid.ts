@@ -1,13 +1,24 @@
 
 import {LitElement, html, css} from 'lit';
-import {customElement, property} from 'lit/decorators.js';
+import {customElement, property, query} from 'lit/decorators.js';
 
 @customElement('etch-grid')
 export class EtchGrid extends LitElement {
-	@property({type: Number})
+	@property({
+		type: Number
+	})
   size=16;
+
 	@property()
 	onMouseover = (cell:EventTarget)=>cell;
+
+  @query('div')
+	container?:HTMLElement
+
+	constructor(){
+		super();
+		this.addEventListener('reset-grid',(e)=>this.reset())
+	}
 
 	static override styles = css`
 	:host {
@@ -35,6 +46,19 @@ export class EtchGrid extends LitElement {
 	private handleMouseover({target}:{target:HTMLElement}){
 	  if(target.classList.contains("cell")){
 		  this.onMouseover(target);
+		}
+	}
+
+	reset(){
+		this.container?.querySelectorAll('.cell').forEach((cell)=>{
+			cell.style.backgroundColor='';
+			cell.textContent='';
+		})
+	}
+
+	override updated(changedProperties: Map<string,any>){
+		if(changedProperties.has('size')){
+			this.reset();
 		}
 	}
 
