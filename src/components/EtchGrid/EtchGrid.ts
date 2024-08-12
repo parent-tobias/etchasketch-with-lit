@@ -9,6 +9,11 @@ export class EtchGrid extends LitElement {
 	})
   size=16;
 
+	@property({
+		type: Boolean
+	})
+	borders=true;
+
 	@property()
 	onMouseover = (cell:EventTarget)=>cell;
 
@@ -34,12 +39,14 @@ export class EtchGrid extends LitElement {
 		box-sizing: border-box;
 		width: calc(100%/var(--per-side, 16));
 		aspect-ratio: 1;
-		border: 1px solid #333;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		font-weight:800;
   	overflow: hidden;
+	}
+	.bordered {
+		border: 1px solid #777;
 	}
 	`;
 
@@ -67,7 +74,7 @@ export class EtchGrid extends LitElement {
 		return html`
 		<div @mouseover="${this.handleMouseover}">
   		<style>:host {--per-side: ${this.size};}</style>
-	  	${Array.from({length: this.size**2}, ()=>html`<div class='cell'></div>`)}
+	  	${Array.from({length: this.size**2}, ()=>html`<div class='cell ${this.borders && 'bordered'}'></div>`)}
 	</div>
 		`
 	}

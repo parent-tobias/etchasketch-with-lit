@@ -4,14 +4,15 @@ import {customElement, property} from 'lit/decorators.js';
 @customElement('drawing-mode')
 export class DrawingMode extends LitElement {
 	static style = css`
-	:host {
+	:root {
+		width: 100%;
 	  box-sizing: border-box;
 		margin: 0;
 		padding: 0;
 	}
 
-	button {
-		background-color: var(--mode-background, #eee);
+	button.drawing-mode-control {
+		background-color: #eee;
 		border-radius: 0;
 		border: none;
 		outline: none;

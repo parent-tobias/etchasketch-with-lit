@@ -5,6 +5,9 @@ export {ActionsPanel} from './components/ActionsPanel/ActionsPanel';
 import { toHtml } from './util';
 
 
+const actionsPanel = document.querySelector('actions-panel');
+const etchGrid = document.querySelector('etch-grid');
+
 // Dynamically add coloring handlers to the actions panel, creating the mode buttons.
 const handlers = [
 	{type: 'drawing-mode', title: 'Default', handler: (cell)=>cell.style.backgroundColor="hsl(0 0% 50%)"},
@@ -25,22 +28,26 @@ const handlers = [
 	{type: 'color-picker-drawing-mode', title: 'Custom Color'},
 	{type: 'drawing-mode', title: 'Reset', handler:()=>{} }
 ]
-document.querySelector('actions-panel').modes = handlers;
+
+actionsPanel.modes = handlers;
 
 // setup the default so *something* happens.
-document.querySelector("etch-grid").onMouseover = handlers[0].handler;
+etchGrid.onMouseover = handlers[0].handler;
 
 
 // listen for changes to both drawing mode buttons, and size change.
 // When either happens, tell the etch-grid about it and let it handle it itself.
-document.querySelector('actions-panel').addEventListener("mode-change", (evt)=>{
+actionsPanel.addEventListener("mode-change", (evt)=>{
   const {title, handler} = evt.detail;
 	if(title==='Reset'){
-		document.querySelector('etch-grid').dispatchEvent(new CustomEvent('reset-grid'));
+		etchGrid.dispatchEvent(new CustomEvent('reset-grid'));
 	} else {
-    document.querySelector('etch-grid').onMouseover=evt.detail.handler;
+    etchGrid.onMouseover=evt.detail.handler;
 	}
 });
-document.querySelector('actions-panel').addEventListener("size-change", (evt)=>
-  document.querySelector('etch-grid').size=evt.detail.size
+actionsPanel.addEventListener("size-change", (evt)=>
+  etchGrid.size=evt.detail.size
+);
+actionsPanel.addEventListener("borders-change", (evt)=>
+  etchGrid.borders=evt.detail.borders
 );
